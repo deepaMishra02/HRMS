@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:8000/api/admin";
+const BASE_URL = "https://backend.hrm.hypertonic.co.in/api/admin";
 
 const API_KEY = "supersecret123";
 

@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'mainDomain.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'hrms',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST':'localhost',
+            'NAME': 'hypertonic_hrms1',
+            'USER': 'hypertonic_hrms1',
+            'PASSWORD': 'o(].D$HU-Uk%atIv',
+            'HOST':'hypertonic.co.in',
             'PORT':'3306',
 
         }
