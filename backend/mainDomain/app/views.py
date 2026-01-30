@@ -36,8 +36,8 @@ class EmployeeAPI(View):
                 department=data.get("department")
             )
         except IntegrityError:
-            return JsonResponse({"error": "Email already exists"}, status=400)
-        
+            return JsonResponse({"status": False, "message": "Email already exists"}, status=400)
+
         return JsonResponse({
             "status": True,
             "message": "Employee created",
@@ -72,33 +72,37 @@ class EmployeeDetailAPI(View):
         return JsonResponse(data)
 
     def put(self, request, pk):
+        try:
+            employee = self.get_object(pk)
 
-        employee = self.get_object(pk)
+            if not employee:
+                return JsonResponse({"error": "Not found"}, status=404)
 
-        if not employee:
-            return JsonResponse({"error": "Not found"}, status=404)
+            data = json.loads(request.body)
 
-        data = json.loads(request.body)
+            employee.name = data.get("name", employee.name)
+            employee.email = data.get("email", employee.email)
+            employee.department = data.get("department", employee.department)
 
-        employee.name = data.get("name", employee.name)
-        employee.email = data.get("email", employee.email)
-        employee.department = data.get("department", employee.department)
+            employee.save()
 
-        employee.save()
-
-        return JsonResponse({"message": "Updated"}, status=200)
+            return JsonResponse({"status": True, "message": "Updated"}, status=200)
+        except IntegrityError:
+            return JsonResponse({"status": False, "message": "Fail to Update"}, status=400)
 
 
     def delete(self, request, pk):
+        try:
+            employee = self.get_object(pk)
 
-        employee = self.get_object(pk)
+            if not employee:
+                return JsonResponse({"error": "Not found"}, status=404)
 
-        if not employee:
-            return JsonResponse({"error": "Not found"}, status=404)
+            employee.delete()
 
-        employee.delete()
-
-        return JsonResponse({"message": "Deleted"}, status=200)
+            return JsonResponse({"status": True, "message": "Deleted"}, status=200)
+        except:
+            return JsonResponse({"status": False, "message": "Fail to Delete"}, status=400)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -127,7 +131,7 @@ class AttendanceAPI(View):
                     status=status
                 )
             except IntegrityError:
-                return JsonResponse({"error": "Attendance for this date already exists"}, status=400)
+                return JsonResponse({"status": False,"message": "Attendance for this date already exists"}, status=400)
 
             return JsonResponse({"status": True, "message": "Attendance added"}, status=201)
 
@@ -154,7 +158,7 @@ class AttendanceAPI(View):
             for rec in records
         ]
 
-        return JsonResponse({"status": True, "attendance": data})
+        return JsonResponse({"status": True, "data": data})
 
     def put(self, request):
         try:

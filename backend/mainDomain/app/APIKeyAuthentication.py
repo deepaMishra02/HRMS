@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 
 class APIKeyMiddleware:
@@ -10,7 +10,9 @@ class APIKeyMiddleware:
 
         # Apply only on API URLs
         if request.path.startswith('/api/'):
-
+            if request.method == "OPTIONS":
+                response = HttpResponse()
+                return response
             api_key = request.headers.get('Authorization')
 
             if not api_key:

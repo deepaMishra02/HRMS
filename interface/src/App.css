@@ -1,0 +1,166 @@
+*{
+  box-sizing: border-box;
+}
+
+.container{
+  display:flex;
+  min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+  width:220px;
+  background:#1e293b;
+  color:white;
+  padding:20px;
+}
+
+.sidebar button{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:none;
+  color:white;
+  text-align:left;
+  cursor:pointer;
+}
+
+.sidebar button:hover{
+  background:#334155;
+}
+
+/* Main */
+.main{
+  flex:1;
+  padding:20px;
+  background:#f1f5f9;
+}
+
+/* Table Responsive */
+table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top:10px;
+  background:white;
+}
+.table-container{
+  width:100%;
+  overflow-x:auto;
+}
+
+/* Smooth scrolling */
+.table-container::-webkit-scrollbar{
+  height:6px;
+}
+
+.table-container::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
+  border-radius:10px;
+}
+
+th, td{
+  padding:12px;
+  border-bottom:1px solid #ddd;
+}
+input, select{
+  padding:8px;
+  width:100%;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+tr:hover{
+  background:#f9fafb;
+}
+
+/* Buttons */
+button{
+  padding:8px 14px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  margin-right:5px;
+}
+
+button:hover{
+  opacity:.85;
+}
+
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.modal-content{
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  width:90%;
+  max-width:400px;
+}
+
+/* Toast */
+.toast{
+  position:fixed;
+  top:20px;
+  right:20px;
+  padding:14px 20px;
+  border-radius:8px;
+  color:white;
+  font-weight:600;
+  z-index:999;
+}
+
+.toast.success{
+  background:#16a34a;
+}
+
+.toast.error{
+  background:#dc2626;
+}
+
+/* Status Badge */
+.badge{
+  padding:5px 10px;
+  border-radius:20px;
+  color:white;
+  font-size:12px;
+}
+
+.present{
+  background:#22c55e;
+}
+
+.absent{
+  background:#ef4444;
+}
+
+/* ⭐⭐⭐ MOBILE ⭐⭐⭐ */
+@media(max-width:768px){
+
+  .container{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+  }
+
+  table{
+    font-size:14px;
+  }
+
+  th,td{
+    padding:8px;
+  }
+
+}
