@@ -15,7 +15,7 @@ function EmployeeModal({ show, onClose, onSubmit, editEmployee }) {
             });
           }}
         >
-          <h3>{editEmployee ? "Edit Employee" : "Add Employee"}</h3>
+          <h3>{editEmployee ? "Edit Employee Details:" : "Add Employee"}</h3>
 
           <input
             name="name"
@@ -39,7 +39,7 @@ function EmployeeModal({ show, onClose, onSubmit, editEmployee }) {
 
           <button type="submit" style={{ background: "rgb(57 151 216)", color: "white" }}>Save</button>
           <button type="button" style={{ background: "lightgray", color: "black" }} onClick={onClose}>
-            Cancel
+            Close
           </button>
         </form>
       </div>

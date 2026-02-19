@@ -1,4 +1,9 @@
-const BASE_URL = "https://backend.hrm.hypertonic.co.in/api/admin";
+const isLocal = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+const BASE_URL = isLocal
+  ? "http://127.0.0.1:8000/api/admin"
+  : "https://backend.hrm.hypertonic.co.in/api/admin";
+
 
 const API_KEY = "supersecret123";
 

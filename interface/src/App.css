@@ -74,13 +74,22 @@ tr:hover{
 
 /* Buttons */
 button{
-  padding:8px 14px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  margin-right:5px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-top: 5px;
 }
-
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.active
+{
+  background-color: #334155;
+  border-radius: 10px;
+}
 button:hover{
   opacity:.85;
 }
