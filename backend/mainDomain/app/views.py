@@ -140,23 +140,45 @@ class AttendanceAPI(View):
 
     def get(self, request):
         emp_id = request.GET.get("employee_id")
-        if not emp_id:
-            return JsonResponse({"error": "employee_id query param required"}, status=400)
+        print("Employee ID:", emp_id)  # Debugging statement
 
-        try:
-            employee = Employee.objects.get(employee_id=emp_id)
-        except Employee.DoesNotExist:
-            return JsonResponse({"error": "Employee not found"}, status=404)
+        # CASE 1: If employee_id is provided → Single employee attendance
+        if emp_id != None and emp_id != "" and emp_id != "undefined":
+            print("Fetching attendance for employee_id:", emp_id)  # Debugging statement
+            try:
+                employee = Employee.objects.get(employee_id=emp_id)
+            except Employee.DoesNotExist:
+                return JsonResponse({"error": "Employee not found"}, status=404)
 
-        records = Attendance.objects.filter(employee=employee).order_by("-date")
+            records = Attendance.objects.filter(employee=employee).order_by("-date")
 
-        data = [
-            {
-                "date": rec.date.strftime("%Y-%m-%d"),
-                "status": rec.get_status_display()  # returns "Present" or "Absent"
-            }
-            for rec in records
-        ]
+            data = [
+                {
+                    "date": rec.date.strftime("%Y-%m-%d"),
+                    "status": rec.get_status_display()
+                }
+                for rec in records
+            ]
+
+            return JsonResponse({"status": True, "data": data})
+
+        # CASE 2: If NO employee_id → Return ALL employees attendance date-wise
+        records = Attendance.objects.select_related("employee").order_by("-date")
+
+        data = {}
+
+        for rec in records:
+            date_str = rec.date.strftime("%Y-%m-%d")
+
+            if date_str not in data:
+                data[date_str] = []
+
+            data[date_str].append({
+                "employee_id": rec.employee.employee_id,
+                "name": rec.employee.name,
+                "department": rec.employee.department,
+                "status": rec.get_status_display()
+            })
 
         return JsonResponse({"status": True, "data": data})
 

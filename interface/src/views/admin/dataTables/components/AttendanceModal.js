@@ -32,7 +32,7 @@ function AttendanceModal({
               {attendance.map((a, i) => (
                 <tr key={i}>
                   <td>{a.date}</td>
-                  <td>{a.status === 1 ? "Present" : "Absent"}</td>
+                  <td>{a.status}</td>
                 </tr>
               ))}
             </tbody>

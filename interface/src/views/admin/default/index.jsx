@@ -48,9 +48,11 @@ export default function UserReports() {
 
       // Fetch attendance for today
       const attData = await fetchAttendance();
-      const todayAttendance = attData.filter(
-        (a) => a.date === today
-      );
+      console.log("Attendance Data:", attData.data);
+      const rest = attData.data
+      console.log(today)
+      const todayAttendance = rest[today] || [];
+      console.log("Today's Attendance:", todayAttendance);
       setAttendance(todayAttendance);
     } catch (error) {
       console.error(error);
@@ -59,7 +61,12 @@ export default function UserReports() {
 
   // Calculate counts
   const totalEmployees = employees.length;
-  const present = attendance.filter((a) => a.status === "present").length;
+
+  // ⚠️ Status is capitalized from backend
+  const present = attendance.filter(
+    (a) => a.status === "Present"
+  ).length;
+
   const absent = totalEmployees - present;
 
   const pieData = [
